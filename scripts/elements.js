@@ -119,7 +119,8 @@ const THERMITE = __inGameColor(195, 140, 70);
 const BURNING_THERMITE = __inGameColor(255, 130, 130);
 const TEST = __inGameColor(255, 255, 255);
 const TITANIUM = __inGameColor(226, 226, 226)
-
+const RED = __inGameColor(255, 0, 0)
+const CLIMAX = __inGameColor(255, 255, 255)
 /*
  * It would be nice to combine the elements and elementActions
  * into a single 2d array, but to optimize for speed we need
@@ -168,6 +169,8 @@ const elements = new Uint32Array([
   BURNING_THERMITE,
   TEST,
   TITANIUM,
+  RED,
+  CLIMAX
 ]);
 const elementActions = [
   BACKGROUND_ACTION,
@@ -208,7 +211,9 @@ const elementActions = [
   THERMITE_ACTION,
   BURNING_THERMITE_ACTION,
   TEST_ACTION,
-  TITANIUM_ACTION
+  TITANIUM_ACTION,
+  WALL_ACTION,
+  CLIMAX_ACTION,
 ];
 Object.freeze(elementActions);
 
@@ -456,6 +461,10 @@ function SPOUT_ACTION(x, y, i) {
 
 function WELL_ACTION(x, y, i) {
   doProducer(x, y, i, OIL, false, 10);
+}
+
+function CLIMAX_ACTION(x, y, i) {
+  doProducer(x, y, i, TEST, false, 100);
 }
 
 function TORCH_ACTION(x, y, i) {
@@ -906,7 +915,6 @@ function MYSTERY_ACTION(x, y, i) {
     return;
   }
 
-  if (doGravity(x, y, i, true, 95)) return;
 
   /* reduce computation cost */
   if (random() < 50) return;
