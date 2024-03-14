@@ -32,7 +32,7 @@ const elementMenuItems = [
   GUNPOWDER, NAPALM, NITRO, C4,
   LAVA, CRYO, FUSE, MYSTERY,
   CONCRETE, METHANE, SOIL, ACID,
-  THERMITE, BACKGROUND,CHARGED_NITRO,TEST,TITANIUM,ROCK
+  THERMITE, BACKGROUND,CHARGED_NITRO,TEST,TITANIUM,ROCK, LEAF, BRANCH
 ];
 
 const menuNames = {};
@@ -66,6 +66,8 @@ menuNames[CHARGED_NITRO] = "CHARGE";
 menuNames[TEST] = "( ͡° ͜ʖ ͡°)";
 menuNames[TITANIUM] = "TITANIUM";
 menuNames[ROCK] = "ROCK";
+menuNames[LEAF] = "LEAF";
+menuNames[BRANCH] = "WOOD";
 /*
  * Some element colors do not have very good contrast against
  * the menu background. For these elements, we use a replacement

@@ -297,7 +297,7 @@ function WATER_ACTION(x, y, i) {
 }
 
 function TEST_ACTION(x, y, i) {
-  if (doGravity(x, y, i, true, 50)) return;
+  if (doGravity(x, y, i, true,100)) return;
 }
 
 function PLANT_ACTION(x, y, i) {
