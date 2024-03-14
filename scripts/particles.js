@@ -118,6 +118,7 @@ function NITRO_PARTICLE_ACTION(particle) {
 
   if (particle.size < 1.75) particles.makeParticleInactive(particle);
   else if (particle.offCanvas()) particles.makeParticleInactive(particle);
+
 }
 
 function NAPALM_PARTICLE_INIT(particle) {
@@ -130,11 +131,9 @@ function NAPALM_PARTICLE_INIT(particle) {
 
 function NAPALM_PARTICLE_ACTION(particle) {
   particle.drawCircle(particle.size);
-
   particle.x += particle.xVelocity;
   particle.y += particle.yVelocity;
   particle.size *= 1 + Math.random() * 0.1;
-
   if (particle.actionIterations > particle.maxIterations)
     particles.makeParticleInactive(particle);
 }
@@ -220,7 +219,10 @@ function LAVA_PARTICLE_ACTION(particle) {
     ) {
       if (random() < 70) replaceColor = ROCK;
     } else if (touchingColor === WALL) {
-      if (random() < 25) replaceColor = LAVA;
+      if (random() < 2) replaceColor = LAVA;
+    }
+    else if(touchingColor === TITANIUM){
+      particles.makeParticleInactive(particle);
     }
 
     if (replaceColor !== -1) {

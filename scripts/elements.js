@@ -118,6 +118,7 @@ const ACID = __inGameColor(157, 240, 40);
 const THERMITE = __inGameColor(195, 140, 70);
 const BURNING_THERMITE = __inGameColor(255, 130, 130);
 const TEST = __inGameColor(255, 255, 255);
+const TITANIUM = __inGameColor(226, 226, 226)
 
 /*
  * It would be nice to combine the elements and elementActions
@@ -166,6 +167,7 @@ const elements = new Uint32Array([
   THERMITE,
   BURNING_THERMITE,
   TEST,
+  TITANIUM,
 ]);
 const elementActions = [
   BACKGROUND_ACTION,
@@ -206,6 +208,7 @@ const elementActions = [
   THERMITE_ACTION,
   BURNING_THERMITE_ACTION,
   TEST_ACTION,
+  TITANIUM_ACTION
 ];
 Object.freeze(elementActions);
 
@@ -261,12 +264,17 @@ function initElements() {
   GAS_PERMEABLE[POLLEN] = null;
   GAS_PERMEABLE[CHARGED_NITRO] = null;
   GAS_PERMEABLE[ACID] = null;
+  GAS_PERMEABLE[TEST] = null;
   Object.freeze(GAS_PERMEABLE);
 }
 
 /* ======================= Element action handlers ======================= */
 
 function WALL_ACTION(x, y, i) {}
+
+function TITANIUM_ACTION(x, y, i ){
+
+}
 
 function BACKGROUND_ACTION(x, y, i) {
   throw "As an optimization, we should never be invoking the action for the " +
@@ -289,7 +297,7 @@ function WATER_ACTION(x, y, i) {
 }
 
 function TEST_ACTION(x, y, i) {
-  if (doGravity(x, y, i, true, 50)) return;
+  if (doGravity(x, y, i, true, 100)) return;
 }
 
 function PLANT_ACTION(x, y, i) {
@@ -297,7 +305,9 @@ function PLANT_ACTION(x, y, i) {
 
   if (random() < 5) {
     const saltLoc = bordering(x, y, i, SALT);
-    if (saltLoc !== -1) {
+    const testLoc = bordering(x, y, i,TEST);
+
+    if (saltLoc !== -1||testLoc !== -1) {
       gameImagedata32[i] = BACKGROUND;
       return;
     }
@@ -648,6 +658,7 @@ const __lava_immune = [
   WATER,
   SALT_WATER,
   STEAM,
+  TITANIUM
 ];
 Object.freeze(__lava_immune);
 const __num_lava_immune = __lava_immune.length;
@@ -698,7 +709,7 @@ function LAVA_ACTION(x, y, i) {
       gameImagedata32[i] = ROCK;
       return;
     }
-
+    //Particle Spawner
     if (random() < 4) {
       const numLavaParticles = particles.particleCounts[LAVA_PARTICLE];
       const spawnChance = numLavaParticles < 10 ? 100 : 35;
@@ -710,7 +721,7 @@ function LAVA_ACTION(x, y, i) {
         }
       }
     }
-
+    
     if (random() < 25) {
       const burnLocs = [up, down, left, right];
       const numBurnLocs = burnLocs.length;
@@ -777,12 +788,12 @@ function ROCK_ACTION(x, y, i) {
 
   if (doGravity(x, y, i, false, 99)) return;
 
-  /* Produce METHANE when in contact with OIL */
+  /* Produce NITRO when in contact with OIL */
   if (random() < 1 && random() < 20 && above(y, i, OIL) !== -1) {
     const aboveOil = above(y, i, OIL);
     if (aboveOil !== -1) {
-      if (random() < 50) gameImagedata32[aboveOil] = METHANE;
-      else gameImagedata32[i] = METHANE;
+      if (random() < 50) gameImagedata32[aboveOil] = NITRO;
+      else gameImagedata32[i] = NITRO;
       return;
     }
   }
@@ -1106,7 +1117,8 @@ function ACID_ACTION(x, y, i) {
             borderingElem === SALT_WATER ||
             borderingElem === ICE ||
             borderingElem === CHILLED_ICE ||
-            borderingElem === CRYO)
+            borderingElem === CRYO ||
+            borderingElem === TITANIUM)
           continue;
 
         if (yIter !== y + 1) {

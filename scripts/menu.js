@@ -32,7 +32,7 @@ const elementMenuItems = [
   GUNPOWDER, NAPALM, NITRO, C4,
   LAVA, CRYO, FUSE, MYSTERY,
   CONCRETE, METHANE, SOIL, ACID,
-  THERMITE, BACKGROUND,CHARGED_NITRO,TEST
+  THERMITE, BACKGROUND,CHARGED_NITRO,TEST,TITANIUM,ROCK
 ];
 
 const menuNames = {};
@@ -63,7 +63,9 @@ menuNames[SOIL] = "SOIL";
 menuNames[ACID] = "ACID";
 menuNames[THERMITE] = "THERMITE";
 menuNames[CHARGED_NITRO] = "CHARGE";
-menuNames[TEST] = "TEST";
+menuNames[TEST] = "( ͡° ͜ʖ ͡°)";
+menuNames[TITANIUM] = "TITANIUM";
+menuNames[ROCK] = "ROCK";
 /*
  * Some element colors do not have very good contrast against
  * the menu background. For these elements, we use a replacement
@@ -75,6 +77,7 @@ menuAltColors[WALL] = "rgb(160, 160, 160)";
 menuAltColors[BACKGROUND] = "rgb(200, 100, 200)";
 menuAltColors[WELL] = "rgb(158, 13, 33)";
 menuAltColors[SOIL] = "rgb(171, 110, 53)";
+menuAltColors[ROCK] = "rgb(128, 85, 0)";
 
 function initMenu() {
   /* The wrapper div that holds the entire menu */
