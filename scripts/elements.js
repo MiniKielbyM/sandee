@@ -519,6 +519,7 @@ function C4_ACTION(x, y, i) {
     }
     return;
   }
+  if (doGravity(x, y, i, false, 95)) return;
 }
 
 function CONCRETE_ACTION(x, y, i) {
@@ -952,7 +953,7 @@ function METHANE_ACTION(x, y, i) {
 }
 
 function SOIL_ACTION(x, y, i) {
-  if (doGravity(x, y, i, false, 99)) return;
+  if (doGravity(x, y, i, true, 99)) return;
 
   /* Optimize for common case; can't sink through SOIL */
   if (y !== MAX_Y_IDX && uniformBelowAdjacent(x, y, i) !== SOIL) {
@@ -1033,7 +1034,7 @@ function LEAF_ACTION(x, y, i) {
 }
 
 function POLLEN_ACTION(x, y, i) {
-  if (doGravity(x, y, i, true, 95)) return;
+  if (doRise(x, y, i, 70, 60)) return;
 }
 
 function CHARGED_NITRO_ACTION(x, y, i) {
