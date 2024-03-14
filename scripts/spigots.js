@@ -34,9 +34,10 @@ const SPIGOT_ELEMENT_OPTIONS = [
   THERMITE,
   CHARGED_NITRO,
   C4,
+  TEST,
 ];
-const SPIGOT_SIZE_OPTIONS = [0, 5, 10, 15, 20, 25];
-const DEFAULT_SPIGOT_SIZE_IDX = 1;
+const SPIGOT_SIZE_OPTIONS = [0, 5, 10, 15, 20, 25, 100];
+const DEFAULT_SPIGOT_SIZE_IDX = 0;
 
 /* Type and size of each spigot. Controlled via the menu. */
 const SPIGOT_ELEMENTS = [SAND, WATER, SALT, OIL];

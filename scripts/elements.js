@@ -117,6 +117,7 @@ const CHARGED_NITRO = __inGameColor(245, 98, 78);
 const ACID = __inGameColor(157, 240, 40);
 const THERMITE = __inGameColor(195, 140, 70);
 const BURNING_THERMITE = __inGameColor(255, 130, 130);
+const TEST = __inGameColor(255, 255, 255);
 
 /*
  * It would be nice to combine the elements and elementActions
@@ -164,6 +165,7 @@ const elements = new Uint32Array([
   ACID,
   THERMITE,
   BURNING_THERMITE,
+  TEST,
 ]);
 const elementActions = [
   BACKGROUND_ACTION,
@@ -203,6 +205,7 @@ const elementActions = [
   ACID_ACTION,
   THERMITE_ACTION,
   BURNING_THERMITE_ACTION,
+  TEST_ACTION,
 ];
 Object.freeze(elementActions);
 
@@ -283,6 +286,10 @@ function SAND_ACTION(x, y, i) {
 function WATER_ACTION(x, y, i) {
   if (doGravity(x, y, i, true, 95)) return;
   if (doDensityLiquid(x, y, i, OIL, 25, 50)) return;
+}
+
+function TEST_ACTION(x, y, i) {
+  if (doGravity(x, y, i, true, 50)) return;
 }
 
 function PLANT_ACTION(x, y, i) {

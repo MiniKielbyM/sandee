@@ -19,8 +19,8 @@
 
 /* Configuration of the menu */
 const ELEMENT_MENU_ELEMENTS_PER_ROW = 4;
-const PEN_SIZES = [2, 4, 8, 16, 32, 64];
-const PEN_SIZE_LABELS = ["1px", "2px", "4px", "8px", "16px", "32px"];
+const PEN_SIZES = [2, 4, 8, 16, 32, 64, 128, 256];
+const PEN_SIZE_LABELS = ["1px", "2px", "4px", "8px", "16px", "32px", "64px", "128px"];
 const DEFAULT_PEN_IDX = 1;
 
 /* Elements listed in the menu */
@@ -32,7 +32,7 @@ const elementMenuItems = [
   GUNPOWDER, NAPALM, NITRO, C4,
   LAVA, CRYO, FUSE, MYSTERY,
   CONCRETE, METHANE, SOIL, ACID,
-  THERMITE, BACKGROUND,CHARGED_NITRO
+  THERMITE, BACKGROUND,CHARGED_NITRO,TEST
 ];
 
 const menuNames = {};
@@ -63,6 +63,7 @@ menuNames[SOIL] = "SOIL";
 menuNames[ACID] = "ACID";
 menuNames[THERMITE] = "THERMITE";
 menuNames[CHARGED_NITRO] = "CHARGE";
+menuNames[TEST] = "TEST";
 /*
  * Some element colors do not have very good contrast against
  * the menu background. For these elements, we use a replacement
