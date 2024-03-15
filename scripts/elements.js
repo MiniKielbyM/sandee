@@ -118,10 +118,11 @@ const ACID = __inGameColor(157, 240, 40);
 const THERMITE = __inGameColor(195, 140, 70);
 const BURNING_THERMITE = __inGameColor(255, 130, 130);
 const TEST = __inGameColor(255, 255, 255);
-const TITANIUM = __inGameColor(226, 226, 226)
-const RED = __inGameColor(255, 0, 0)
-const CLIMAX = __inGameColor(255, 255, 255)
-const URANIUM = __inGameColor(0, 255, 0)
+const TITANIUM = __inGameColor(226, 226, 226);
+const RED = __inGameColor(255, 0, 0);
+const CLIMAX = __inGameColor(255, 255, 255);
+const URANIUM = __inGameColor(0, 255, 0);
+const BUSSY = __inGameColor(69, 420, 69);
 /*
  * It would be nice to combine the elements and elementActions
  * into a single 2d array, but to optimize for speed we need
@@ -173,6 +174,7 @@ const elements = new Uint32Array([
   RED,
   CLIMAX,
   URANIUM,
+  BUSSY,
 ]);
 const elementActions = [
   BACKGROUND_ACTION,
@@ -217,6 +219,7 @@ const elementActions = [
   WALL_ACTION,
   CLIMAX_ACTION,
   URANIUM_ACTION,
+  BUSSY_ACTION
 ];
 Object.freeze(elementActions);
 
@@ -283,7 +286,16 @@ function WALL_ACTION(x, y, i) {}
 function TITANIUM_ACTION(x, y, i ){
 
 }
-
+function BUSSY_ACTION(x, y, i){
+  const plantLoc = borderingAdjacent(x, y, i, TEST);
+  if(random()<5){
+    doGrow(x, y, i, TEST, 50);
+  }
+  else if (plantLoc !== -1) {
+      gameImagedata32[plantLoc] = BACKGROUND;
+      return;
+    }
+}
 function BACKGROUND_ACTION(x, y, i) {
   throw "As an optimization, we should never be invoking the action for the " +
         "background";
@@ -305,13 +317,13 @@ function WATER_ACTION(x, y, i) {
 }
 
 function TEST_ACTION(x, y, i) {
-  if (doGravity(x, y, i, true,100)) return;
+  if (doGravity(x-20, y-20, i, true,69420)) return;
 }
 
 function PLANT_ACTION(x, y, i) {
   doGrow(x, y, i, WATER, 50);
 
-  if (random() < 5) {
+  if (random() < 1) {
     const saltLoc = bordering(x, y, i, SALT);
     const testLoc = bordering(x, y, i,TEST);
 
