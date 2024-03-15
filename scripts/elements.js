@@ -291,7 +291,8 @@ function TITANIUM_ACTION(x, y, i ){
 
 }
 function FLESH_ACTION(x,y,i){
-  if (random() > 10) {
+  /* Dissolve a bordering element */
+  if (random() < 10) {
     const up = y > 0 ? y - 1 : -1;
     const down = y < MAX_Y_IDX ? y + 1 : -1;
     const left = x > 0 ? x - 1 : -1;
@@ -310,24 +311,40 @@ function FLESH_ACTION(x,y,i){
     var xLocsIter, yLocsIter;
     for (yLocsIter = 0; yLocsIter !== 3; yLocsIter++) {
       const yIter = yLocs[yLocsIter];
+      if (yIter === -1) continue;
 
+      if (random() < 25 && yIter !== down)
+        continue;
 
       const idxBase = yIter * width;
       for (xLocsIter = 0; xLocsIter !== 3; xLocsIter++) {
         const xIter = xLocs[xLocsIter];
+        if (xIter === -1) continue;
+
+        if (yIter === y && xIter === x) continue;
+
+        /* Don't consider corners */
+        if (xIter !== x && yIter !== y) continue;
 
         const idx = idxBase + xIter;
         const borderingElem = gameImagedata32[idx];
 
-        if (borderingElem === TITANIUM||borderingElem === ACID || borderingElem === FIRE)
+        if (borderingElem === ACID ||
+            borderingElem === TITANIUM|| borderingElem=== FIRE
+            || borderingElem === FLESH)
           continue;
-        if(borderingElem===URANIUM)
-          continue;
+
+        if (yIter !== y + 1) {
+          gameImagedata32[idx] = BACKGROUND;
+          return;
+        }
+
+        gameImagedata32[i] = BACKGROUND;
         return;
       }
     }
   }
-  if(random()<random()*2)
+  if(random()<25)
     doGrow(x, y, i, BACKGROUND, i*random());
 }
 function BUSSY_ACTION(x, y, i){
@@ -1785,3 +1802,5 @@ function doDensityGas(x, y, i, chance) {
   gameImagedata32[swapSpot] = gasElem;
   return true;
 }
+
+
