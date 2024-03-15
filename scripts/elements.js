@@ -123,6 +123,7 @@ const RED = __inGameColor(255, 0, 0);
 const CLIMAX = __inGameColor(255, 255, 255);
 const URANIUM = __inGameColor(0, 255, 0);
 const BUSSY = __inGameColor(69, 420, 69);
+const FLESH = __inGameColor(144, 0, 0)
 /*
  * It would be nice to combine the elements and elementActions
  * into a single 2d array, but to optimize for speed we need
@@ -175,6 +176,7 @@ const elements = new Uint32Array([
   CLIMAX,
   URANIUM,
   BUSSY,
+  FLESH
 ]);
 const elementActions = [
   BACKGROUND_ACTION,
@@ -219,7 +221,8 @@ const elementActions = [
   WALL_ACTION,
   CLIMAX_ACTION,
   URANIUM_ACTION,
-  BUSSY_ACTION
+  BUSSY_ACTION,
+  FLESH_ACTION,
 ];
 Object.freeze(elementActions);
 
@@ -285,6 +288,59 @@ function WALL_ACTION(x, y, i) {}
 
 function TITANIUM_ACTION(x, y, i ){
 
+}
+function FLESH_ACTION(x,y,i){
+  if (random() < 10) {
+    const up = y > 0 ? y - 1 : -1;
+    const down = y < MAX_Y_IDX ? y + 1 : -1;
+    const left = x > 0 ? x - 1 : -1;
+    const right = x < MAX_X_IDX ? x + 1 : -1;
+    const xLocs = [left, right, x];
+    const yLocs = [down, up, y];
+    /* Don't bias left/right or up/down */
+    if (random() < 50) {
+      xLocs[0] = right;
+      xLocs[1] = left;
+    }
+    if (random() < 50) {
+      yLocs[0] = up;
+      yLocs[1] = down;
+    }
+    var xLocsIter, yLocsIter;
+    for (yLocsIter = 0; yLocsIter !== 3; yLocsIter++) {
+      const yIter = yLocs[yLocsIter];
+      if (yIter === -1) continue;
+
+      if (random() < 25 && yIter !== down)
+        continue;
+
+      const idxBase = yIter * width;
+      for (xLocsIter = 0; xLocsIter !== 3; xLocsIter++) {
+        const xIter = xLocs[xLocsIter];
+        if (xIter === -1) continue;
+
+        if (yIter === y && xIter === x) continue;
+
+        /* Don't consider corners */
+        if (xIter !== x && yIter !== y) continue;
+
+        const idx = idxBase + xIter;
+        const borderingElem = gameImagedata32[idx];
+
+        if (borderingElem === TITANIUM||borderingElem === ACID)
+          continue;
+
+        if (yIter !== y + 1) {
+          gameImagedata32[idx] = BACKGROUND;
+          return;
+        }
+
+        gameImagedata32[i] = BACKGROUND;
+        return;
+      }
+    }
+  }
+  doGrow(x, y, i, BACKGROUND, 50);
 }
 function BUSSY_ACTION(x, y, i){
   const plantLoc = borderingAdjacent(x, y, i, TEST);
