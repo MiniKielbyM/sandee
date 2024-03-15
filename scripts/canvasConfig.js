@@ -17,8 +17,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const __max_width = 560;
-const __max_height = 480;
+const __max_width = 1120;
+const __max_height = 960;
 
 /* Need to use a smaller size when on mobile devices with small screens */
 const width = Math.min(__max_width, Math.max(screen.width - 6, 1));
