@@ -553,7 +553,11 @@ function C4_ACTION(x, y, i) {
 
 function URANIUM_ACTION(x, y, i){
   if(bordering(x, y, i, FIRE) !== -1){
-    particles.addActiveParticle(NUKE_PARTICLE, x, y, i*50);
+    particles.addActiveParticle(NUKE_PARTICLE, x, y, i*500);
+    particles.addActiveParticle(NUKE_PARTICLE, x, y+20, i*500);
+    particles.addActiveParticle(NUKE_PARTICLE, x+20, y, i*500);
+    particles.addActiveParticle(NUKE_PARTICLE, x, y-20, i*500);
+    particles.addActiveParticle(NUKE_PARTICLE, x-20, y, i*500);
     gameImagedata32[i] = BACKGROUND;
     return;
   }
