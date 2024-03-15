@@ -70,7 +70,7 @@ menuNames[LEAF] = "LEAF";
 menuNames[POLLEN] = "POLLEN";
 menuNames[BRANCH] = "WOOD";
 menuNames[RED]="RED"
-menuNames[CLIMAX]="CLIMAX"
+menuNames[CLIMAX]="FUNNEE"
 menuNames[URANIUM]="URANIUM"
 menuNames[FLESH]="FLESH"
 
