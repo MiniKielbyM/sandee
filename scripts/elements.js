@@ -121,6 +121,7 @@ const TEST = __inGameColor(255, 255, 255);
 const TITANIUM = __inGameColor(226, 226, 226)
 const RED = __inGameColor(255, 0, 0)
 const CLIMAX = __inGameColor(255, 255, 255)
+const URANIUM = __inGameColor(0, 255, 0)
 /*
  * It would be nice to combine the elements and elementActions
  * into a single 2d array, but to optimize for speed we need
@@ -170,7 +171,8 @@ const elements = new Uint32Array([
   TEST,
   TITANIUM,
   RED,
-  CLIMAX
+  CLIMAX,
+  URANIUM,
 ]);
 const elementActions = [
   BACKGROUND_ACTION,
@@ -214,6 +216,7 @@ const elementActions = [
   TITANIUM_ACTION,
   WALL_ACTION,
   CLIMAX_ACTION,
+  URANIUM_ACTION,
 ];
 Object.freeze(elementActions);
 
@@ -546,6 +549,15 @@ function C4_ACTION(x, y, i) {
     return;
   }
   if (doGravity(x, y, i, false, 95)) return;
+}
+
+function URANIUM_ACTION(x, y, i){
+  if(bordering(x, y, i, FIRE) !== -1){
+    particles.addActiveParticle(NUKE_PARTICLE, x, y, i*50);
+    gameImagedata32[i] = BACKGROUND;
+    return;
+  }
+
 }
 
 function CONCRETE_ACTION(x, y, i) {
